@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/customButton.css">
+    <link rel="stylesheet" href="css/customFonts.css">
+    <link rel="stylesheet" href="css/customScroll.css">
+    <link rel="stylesheet" href="css/customInput.css">
+
+    <script src="js/utils.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="login-form" id="login">
+            <h1 style="font-size: 5rem; text-align: center;">Login</h1>
+            <div class="login-box">
+                <form action="/login" method="POST">
+                    <div class="login-item">
+                        <label for="name" style="font-size: 25px; text-align: center;">User name</label>
+                        <input type="text" name="name" class="input_feeld center_allign">
+                    </div>
+                    <div class="login-item">
+                        <label for="password" style="font-size: 25px; text-align: center;">Password</label>
+                        <input type="text" name="password" class="input_feeld center_allign">
+                    </div>
+                    <div class='custom_button'>
+                        <span>Login</span>
+                        <input type='submit'>
+                    </div>
+                    <div class="login-item">
+                        <a href="/register" style="color: #c8d6e5;">Register</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

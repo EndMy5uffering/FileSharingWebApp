@@ -1,0 +1,9 @@
+@font-face{
+    font-family: bitFont;
+    src: url(/assets/8bitoperator/8bit);
+}
+
+*{
+    font-family: bitFont, Consolas;
+    font-size: 1rem;
+}

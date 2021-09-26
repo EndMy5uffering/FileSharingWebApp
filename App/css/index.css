@@ -1,0 +1,94 @@
+:root{
+    --textColorGray: #b2bec3;
+}
+
+*{
+    font-family: "Consolas";
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #2d3436;
+    margin: 0px;
+    height: 100vh;
+    min-height: 100vh;
+    /*background-size: cover;
+    background-repeat: no-repeat; 
+    background-image: url('/assets/background');*/
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+.container-item{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex: 1 1 50%;
+    text-align: center;
+    overflow-y: auto;
+    border: solid 5px black;
+}
+
+.upload{
+    flex: 1 1 10%;
+}
+
+.container-item > h1{
+    flex: 1 1 10%;
+    font-size: 50px;
+}
+
+.customList{
+    border: solid 2px #dfe6e9;
+    overflow-y: auto;
+}
+
+.customForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.customForm > input{
+    flex: 1 1 100%;
+    justify-content: center;
+}
+
+.top-selection{
+    display: flex;
+    flex-direction: row;
+}
+
+.login-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    flex: 1 1 100%;
+    align-self: center;
+}
+
+.login-box{
+    width: 33%;
+    min-width: 350px;
+    background: #0f1316;
+    border: 5px solid gray;
+    align-self: center;
+    border-radius: 25px;
+}
+
+.login-item{
+    color: #bdc3c7;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+

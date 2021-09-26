@@ -1,0 +1,71 @@
+/*
+<div class='custom_button'>
+    <!--onClick inside of input-->
+    <input type='button' name='<name>' onclick="<function>">
+    <span>template text</span>
+</div>
+*/
+
+:root{
+    --button_background: #a4b0be;
+    --button_border_top_left: #ced6e0;
+    --button_border_right_bottom: #747d8c;
+    --text_color: #2d3436;
+    --click_text_color: #c8d6e5;
+    --click_background: #222f3e;
+    --hover_border_color: white;
+}
+
+.custom_button{
+    position: relative;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    min-height: 50px;
+    min-width: 300px;
+    padding: 5px;
+    overflow: hidden;
+    width: 100%;
+    border-radius: 15px;
+}
+
+.custom_button span{
+    transition: 0.15s;
+    text-align: center;
+    vertical-align: middle;
+    background-color: var(--button_background);
+    min-height: 25px;
+    font-size: 25px;
+    font-weight: 700;
+    width: 100%;
+
+    border: 5px;
+    border-style: solid;
+    border-top-color: var(--button_border_top_left);
+    border-left-color: var(--button_border_top_left);
+    border-right-color: var(--button_border_right_bottom);
+    border-bottom-color: var(--button_border_right_bottom);
+    color: var(--text_color) !important;
+    border-radius: 15px;
+    cursor:pointer;
+
+    word-wrap: break-word;
+}
+
+.custom_button input:active ~ span{
+    transition: 0.15s;
+    background-color: var(--click_background);
+    color: var(--click_text_color) !important;
+}
+
+.custom_button input{
+    width:100%;
+    height: 100%;
+    opacity: 0;
+    position: absolute;
+    cursor:pointer;
+}
+
+.custom_button:hover span{
+    border: 5px solid var(--hover_border_color);
+}
