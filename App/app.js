@@ -8,6 +8,7 @@ const flash = require("express-flash");
 const session = require("express-session");
 
 const initPassport = require("./passport-config");
+const { getPackedSettings } = require('http2');
 
 var CONFIG = JSON.parse(fs.readFileSync('config.json'));
 
@@ -17,11 +18,13 @@ initPassport(
     id => users.find(user => user.id === id));
 
 
-const users = [];
+
 
 let PORT = CONFIG.port;
 let EXCHANGE_FOLDER = CONFIG.exchange_folder;
 let USERS = CONFIG.trustedUsers;
+const users = CONFIG.trustedUsers;
+
 
 const storage = multer.diskStorage({ 
     destination: (req, file, cb) => {
@@ -60,7 +63,7 @@ function checkAPI_KEY(req){
 function getFile(path, res, type){
     fs.readFile(path, (err, data) => {
         if(err){
-            res.status(404).end("404 Page not found");
+            res.status(404).json({status:404}).end();
         }else{
             res.type(type);
             res.write(data);
@@ -70,22 +73,37 @@ function getFile(path, res, type){
 }
 
 function checkAuth(req, res, next){
+    if(!CONFIG.useAuthentication) return next();
     if(req.isAuthenticated()){
         return next();
     }
-
     res.redirect("/login");
 }
 
-app.get('/', (req, res) => { getFile('./html/login.html', res, 'html'); });
-app.get('/login', (req, res) => { getFile('./html/login.html', res, 'html'); });
-app.get('/register', (req, res) => { getFile('./html/register.html', res, 'html'); });
+function logUser(req, res, next){
+    console.log(req.user);
+    next();
+}
+
+function useAuth(req, res, next){
+    if(!CONFIG.useAuthentication){
+        res.redirect("/files");
+    }else{
+        return next();
+    }
+}
+
+app.get('/', useAuth, (req, res) => { getFile('./html/login.html', res, 'html'); });
+app.get('/login', useAuth, (req, res) => { getFile('./html/login.html', res, 'html'); });
+app.get('/register', useAuth, (req, res) => { getFile('./html/register.html', res, 'html'); });
 app.get('/files', checkAuth, (req, res) => { getFile('./html/files.html', res, 'html'); });
+app.get('/text', checkAuth, (req, res) => { getFile('./html/text.html', res, 'html'); });
 
 app.get('/js/utils.js', (req, res) => { getFile('./js/utils.js', res, 'js'); });
 app.get('/js/cookieManager.js', (req, res) => { getFile('./js/cookieManager.js', res, 'js'); });
 app.get('/js/customButtonScripts.js', (req, res) => { getFile('./js/customButtonScripts.js', res, 'js'); });
 app.get('/js/populate.js', (req, res) => { getFile('./js/populate.js', res, 'js'); });
+app.get('/js/drag.js', (req, res) => { getFile('./js/drag.js', res, 'js'); });
 
 app.get('/css/index.css', (req, res) => { getFile('./css/index.css', res, 'css'); });
 app.get('/css/customButton.css', (req, res) => { getFile('./css/customButton.css', res, 'css'); });
@@ -93,11 +111,13 @@ app.get('/css/selectionButton.css', (req, res) => { getFile('./css/selectionButt
 app.get('/css/customScroll.css', (req, res) => { getFile('./css/customScroll.css', res, 'css'); });
 app.get('/css/customFonts.css', (req, res) => { getFile('./css/customFonts.css', res, 'css'); });
 app.get('/css/customInput.css', (req, res) => { getFile('./css/customInput.css', res, 'css'); });
+app.get('/css/loginbox.css', (req, res) => { getFile('./css/loginbox.css', res, 'css'); });
+app.get('/css/customInputPrompt.css', (req, res) => { getFile('./css/customInputPrompt.css', res, 'css'); });
 
 app.get('/assets/unlearn/unlearne', (req, res) => { getFile('./assets/unlearn/unlearne.ttf', res, 'ttf'); });
 app.get('/assets/8bitoperator/8bit', (req, res) => { getFile('./assets/8-bit-operator/8bitOperatorPlus8-Bold.ttf', res, 'ttf'); });
 
-app.get('/api/files', (req, res) => {
+app.get('/api/files', checkAuth, (req, res) => {
     fs.readdir(EXCHANGE_FOLDER, (err, files) => {
         if(err){
             res.status(404).end("404 Page not found");
@@ -107,23 +127,12 @@ app.get('/api/files', (req, res) => {
     });
 });
 
-app.get('/api/login/', (req, res) => { 
-    if(checkAPI_KEY(req)) {
-        console.log("redirect");
-        res.redirect('/files?key='+req.headers.api_key);
-    }else{
-        console.log("Request with missing key for: " + path + " | by: " + req.socket.remoteAddress );
-        res.status(403).end("403 Unauthorized access");
-    } 
-});
-
-app.get('/download/*', (req, res) => {
+app.get('/download/*', checkAuth, (req, res) => {
     let args = req.url.split('/');
     var fileName = args[args.length-1];
     var path = EXCHANGE_FOLDER + fileName;
     console.log("Requested: " + path);
     if(fs.existsSync(path)){
-        console.log("File exists");
         res.status(200);
         res.download(path, fileName, (err) => {
             if(err){
@@ -139,17 +148,17 @@ app.get('/download/*', (req, res) => {
 app.post("/register", async (req, res) => {
     try{
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
-        users.push({
-            id: Date.now().toString(),
-            name: req.body.name,
-            password: hashedPassword
-        });
+        const newUser = {
+        id: Date.now().toString(),
+        name: req.body.name,
+        password: hashedPassword
+        };
+        console.log(JSON.stringify(newUser, null, 2));
         res.redirect("/login");
     } catch {
         console.log("ERROR");
         res.redirect("/");
     }
-    console.log(users);
 });
 
 app.post("/login", passport.authenticate("local", {
@@ -158,10 +167,34 @@ app.post("/login", passport.authenticate("local", {
     failureFlash: false
 }));
 
-app.post('/upload', upload.single('data'), (req, res) => {
-    console.log("File was uploaded");
+function formatSize(size){
+    let suffix = "B";
+    if(size > 1000){
+        size /= 1000;
+        suffix = "KB";
+    }
+    if(size > 1000){
+        size /=1000;
+        suffix = "MB";
+    }
+    if(size > 1000){
+        size /= 1000;
+        suffix = "GB";
+    }
+    if(size > 1000){
+        size /= 1000;
+        suffix = "TB";
+    }
+    return size.toFixed(2) + suffix;
+}
+
+app.post('/upload', checkAuth, upload.array('data'), (req, res) => {
+    for(const f in req.files){
+        console.log("Got file: " + req.files[f].filename + " size: " + formatSize(req.files[f].size));
+    }
     res.type('json');
-    return res.json({ status: "ok" });
+    res.json({ status: "ok" });
+    res.end();
 });
 
 app.get('*', (req, res) => {

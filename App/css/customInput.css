@@ -13,6 +13,14 @@
     font-size: 21px;    
 }
 
+.no-warp{
+    word-wrap: normal !important;
+}
+
+.no-break{
+    word-break: keep-all !important;
+}
+
 .input_feeld::-webkit-scrollbar{   
     display: none;
 }

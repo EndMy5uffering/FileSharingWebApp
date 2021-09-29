@@ -1,5 +1,12 @@
 {
     "port":80,
     "exchange_folder": "./exchange/",
-    "trustedUsers":{"3501580975545309":{}}
+    "useAuthentication": true,
+    "trustedUsers":[
+        {
+		  "id": "1632950525624",
+		  "name": "admin",
+		  "password": "$2b$10$EXJcFJEN3ci0u2ZhAIr47u1HM17LGJRtmO6l9nqtkk.GpTM67Rmj."
+		}
+    ]
 }

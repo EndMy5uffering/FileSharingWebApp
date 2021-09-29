@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/customButton.css">
+    <link rel="stylesheet" href="css/customFonts.css">
+    <link rel="stylesheet" href="css/customScroll.css">
+    <link rel="stylesheet" href="css/selectionButton.css">
+    <link rel="stylesheet" href="css/customInput.css">
+    <link rel="stylesheet" href="css/customInputPrompt.css">
+
+    <script src="js/drag.js"></script>
+
+    <title>Text sharing</title>
+</head>
+<body>
+    <div class="container">
+        <div class="top-selection">
+            <div class='selection_button'>
+                <input type='radio' name='filesharing' onclick="window.location.href = '/files'">
+                <span>FileSharing</span>
+            </div>
+            <div class='selection_button'>
+                <input type='radio' name='textsharing' onclick="window.location.href = '/text'" checked>
+                <span>TextSharing</span>
+            </div>
+        </div> 
+        <div class="container-item row-container">
+            <div class="container-item side-bar">side_bar</div>
+            <div class="container-item center_page">
+                <form action="/text/upload" method="POST" class="user-text-input flex">
+                    <div class="flex" style="display: flex; flex-direction: column;">
+                        <label for="userText" style="font-size: 25px; text-align: center;">Input text</label>
+                        <textarea name="userText" class="input_feeld no-warp no-break"></textarea>
+                    </div>
+                    <div class='custom_button'>
+                        <span>Save</span>
+                        <input type='submit'>
+                    </div>
+                </form>
+            </div>
+        </div> 
+    </div>
+    <div class="input-prompt" id="dragme">
+        <div class="input-prompt-title" id="dragmeheader">
+            <h1>Prompt title</h1>
+            <div class="prompt-close">
+                <div class='custom_button' style="min-width: 0px !important;">
+                    <input type='button' name='prompt-close-butto'>
+                    <span>_</span>
+                </div>
+            </div>
+            <div class="prompt-close">
+                <div class='custom_button' style="min-width: 0px !important;">
+                    <input type='button' name='prompt-close-butto'>
+                    <span>□</span>
+                </div>
+            </div>
+            <div class="prompt-close">
+                <div class='custom_button' style="min-width: 0px !important;">
+                    <input type='button' name='prompt-close-butto'>
+                    <span>X</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="prompt-item">
+            <label for="input" style="font-size: 25px; text-align: center;">...</label>
+            <input type="text" name="input" class="input_feeld center_allign">
+        </div>
+        <div class="prompt-item">
+            <label for="input" style="font-size: 25px; text-align: center;">Input text</label>
+            <input type="text" name="input" class="input_feeld center_allign">
+        </div>
+        <div class="prompt-item">
+            <div class='custom_button'>
+                <input type='button' name='prompt-submit'>
+                <span>Submit</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

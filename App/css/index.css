@@ -12,9 +12,6 @@ body{
     margin: 0px;
     height: 100vh;
     min-height: 100vh;
-    /*background-size: cover;
-    background-repeat: no-repeat; 
-    background-image: url('/assets/background');*/
 }
 
 .container{
@@ -28,7 +25,7 @@ body{
 
 .container-item{
     display: flex;
-    justify-content: center;
+    justify-content: start;
     flex-direction: column;
     flex: 1 1 50%;
     text-align: center;
@@ -36,18 +33,28 @@ body{
     border: solid 5px black;
 }
 
+.row-container{
+    flex-direction: row;
+}
+
 .upload{
     flex: 1 1 10%;
+    min-height: 250px;
+    justify-content: center;
+}
+
+.download{
+    min-height: 250px;
 }
 
 .container-item > h1{
-    flex: 1 1 10%;
     font-size: 50px;
 }
 
 .customList{
     border: solid 2px #dfe6e9;
     overflow-y: auto;
+    min-height: 1rem;
 }
 
 .customForm{
@@ -66,29 +73,25 @@ body{
     flex-direction: row;
 }
 
-.login-form{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
+.side-bar{
+    flex: none;
+    width: 20%;
+    border-top: none;
+    border-bottom: none;
+}
+
+.center_page{
+    border-top: none;
+    border-bottom: none;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.flex{
     flex: 1 1 100%;
-    align-self: center;
 }
 
-.login-box{
-    width: 33%;
-    min-width: 350px;
-    background: #0f1316;
-    border: 5px solid gray;
-    align-self: center;
-    border-radius: 25px;
-}
-
-.login-item{
-    color: #bdc3c7;
-    display: flex;
+.user-text-input{
+    display:flex;
     flex-direction: column;
-    margin: 10px;
 }
-

@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/customButton.css">
     <link rel="stylesheet" href="css/customFonts.css">
     <link rel="stylesheet" href="css/customScroll.css">
+    <link rel="stylesheet" href="css/selectionButton.css">
 
     <script src="js/utils.js"></script>
     <script src="js/populate.js"></script>
@@ -19,17 +20,17 @@
     <div class="container">
 
         <div class="top-selection">
-            <div class='custom_button'>
-                <input type='button' name='filesharing'>
+            <div class='selection_button'>
+                <input type='radio' name='filesharing' onclick="window.location.href = '/files'" checked>
                 <span>FileSharing</span>
             </div>
             <div class='custom_button'>
-                <input type='button' name='textsharing'>
+                <input type='button' name='textsharing' onclick="window.location.href = '/text'">
                 <span>TextSharing</span>
             </div>
         </div>
 
-        <div class="container-item">
+        <div class="container-item download">
             <h1>Download</h1>
             <lu id="fileList" class="customList">
             </lu>
@@ -39,7 +40,7 @@
             <h1>Upload</h1>
             <form action="/upload" method="post" enctype="multipart/form-data" name="fileForm" class="customForm">
                 <div class='custom_button fileSelector'>
-                    <input type='file' name='data'>
+                    <input type='file' name='data' multiple>
                     <span>Select a file</span>
                 </div>
                 <div class='custom_button'>
