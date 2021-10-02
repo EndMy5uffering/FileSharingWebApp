@@ -1,7 +1,12 @@
 {
     "port":80,
     "exchange_folder": "./exchange/",
-    "useAuthentication": true,
+    "useAuthentication": false,
+    "disableUpload":false,
+    "disableDownload":false,
+    "mongoURL":"mongodb://localhost:27017",
+    "mongo_db_name":"webdb",
+    "mongo_db_collection":"text_transfer",
     "trustedUsers":[
         {
 		  "id": "1632950525624",

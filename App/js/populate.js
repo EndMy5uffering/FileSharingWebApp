@@ -6,7 +6,8 @@ window.addEventListener('load', () => {
         var fileList = document.getElementById('fileList');
         for(let file in e.data){
             let element = getButton(e.data[file], e.data[file], e.data[file], 'getFile(this)');
-            fileList.innerHTML += element;
+            let delbutton = getButton(e.data[file]+"_del", "X", e.data[file]+"_del", 'alert(this.dataset.value);', "width:50px;");
+            fileList.innerHTML += `<div style="display: flex; flex-direction:row;">${element + delbutton}</div>`;
         }
     });
 });
@@ -29,10 +30,11 @@ window.addEventListener('load', () => {
     });
 });
 
-function getButton(name, text, data_value, onclick){
-    let button = "<div class='custom_button'>"+
-    "<input type='button' name='"+name+"' data-value="+data_value+" onclick='"+onclick+"'>"+
-    "<span>"+text+"</span>"+
-    "</div>"
+function getButton(name, text, data_value, onclick, style){
+    let bstyle = `style='${style}'`
+    let button = `<div class='custom_button'${style ? " "+bstyle : ""}>
+    <input type='button' name='${name}' data-value=${data_value} onclick='${onclick}'>
+    <span>${text}</span>
+    </div>`
     return button
 }

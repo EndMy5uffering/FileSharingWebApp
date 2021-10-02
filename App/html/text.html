@@ -12,8 +12,10 @@
     <link rel="stylesheet" href="css/customInput.css">
     <link rel="stylesheet" href="css/customInputPrompt.css">
 
-    <script src="js/drag.js"></script>
-
+    <script src="js/elementProvider.js"></script>
+    <script src="js/populateTextPage.js"></script>
+    <script src="js/promptProvider.js"></script>
+    <script src="js/newText.js"></script>
     <title>Text sharing</title>
 </head>
 <body>
@@ -29,58 +31,23 @@
             </div>
         </div> 
         <div class="container-item row-container">
-            <div class="container-item side-bar">side_bar</div>
+            <div class="container-item side-bar" id="side_bar">
+                <div class='custom_button'>
+                    <input type='button' name='<name>' onclick="newText()">
+                    <span>+</span>
+                </div>
+            </div>
             <div class="container-item center_page">
-                <form action="/text/upload" method="POST" class="user-text-input flex">
-                    <div class="flex" style="display: flex; flex-direction: column;">
-                        <label for="userText" style="font-size: 25px; text-align: center;">Input text</label>
-                        <textarea name="userText" class="input_feeld no-warp no-break"></textarea>
-                    </div>
-                    <div class='custom_button'>
-                        <span>Save</span>
-                        <input type='submit'>
-                    </div>
-                </form>
+                <div class="flex" style="display: flex; flex-direction: column;">
+                    <label for="userText" style="font-size: 25px; text-align: center;">Input text</label>
+                    <textarea name="userText" class="input_feeld no-warp no-break" id="center_text_area"></textarea>
+                </div>
+                <div class='custom_button'>
+                    <span>Save</span>
+                    <input type='button' onclick="saveText()">
+                </div>
             </div>
         </div> 
-    </div>
-    <div class="input-prompt" id="dragme">
-        <div class="input-prompt-title" id="dragmeheader">
-            <h1>Prompt title</h1>
-            <div class="prompt-close">
-                <div class='custom_button' style="min-width: 0px !important;">
-                    <input type='button' name='prompt-close-butto'>
-                    <span>_</span>
-                </div>
-            </div>
-            <div class="prompt-close">
-                <div class='custom_button' style="min-width: 0px !important;">
-                    <input type='button' name='prompt-close-butto'>
-                    <span>□</span>
-                </div>
-            </div>
-            <div class="prompt-close">
-                <div class='custom_button' style="min-width: 0px !important;">
-                    <input type='button' name='prompt-close-butto'>
-                    <span>X</span>
-                </div>
-            </div>
-        </div>
-        
-        <div class="prompt-item">
-            <label for="input" style="font-size: 25px; text-align: center;">...</label>
-            <input type="text" name="input" class="input_feeld center_allign">
-        </div>
-        <div class="prompt-item">
-            <label for="input" style="font-size: 25px; text-align: center;">Input text</label>
-            <input type="text" name="input" class="input_feeld center_allign">
-        </div>
-        <div class="prompt-item">
-            <div class='custom_button'>
-                <input type='button' name='prompt-submit'>
-                <span>Submit</span>
-            </div>
-        </div>
     </div>
 </body>
 </html>
