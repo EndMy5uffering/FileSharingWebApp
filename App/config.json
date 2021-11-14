@@ -1,7 +1,7 @@
 {
     "port":80,
     "exchange_folder": "./exchange/",
-    "useAuthentication": false,
+    "useAuthentication": true,
     "disableUpload":false,
     "disableDownload":false,
     "mongoURL":"mongodb://localhost:27017",
@@ -9,9 +9,9 @@
     "mongo_db_collection":"text_transfer",
     "trustedUsers":[
         {
-		  "id": "1632950525624",
-		  "name": "admin",
-		  "password": "$2b$10$EXJcFJEN3ci0u2ZhAIr47u1HM17LGJRtmO6l9nqtkk.GpTM67Rmj."
-		}
+            "id": "1635168773388",
+            "name": "Admin",
+            "password": "$2b$10$dcC6KYYqUs/R38G7YOuelORdLt1kebLsO9eJGQNSbfFlZPHLw33TO"
+        }
     ]
 }

@@ -30,7 +30,7 @@ body{
     flex: 1 1 50%;
     text-align: center;
     overflow-y: auto;
-    border: solid 5px black;
+    border: solid 5px #000;
 }
 
 .row-container{
@@ -38,23 +38,37 @@ body{
 }
 
 .upload{
-    flex: 1 1 10%;
+    background: -webkit-linear-gradient(-90deg, #000, #262626);
+    flex: 1 1 20%;
     min-height: 250px;
     justify-content: center;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
 .download{
+    background: -webkit-linear-gradient(90deg, #000, #262626);
     min-height: 250px;
 }
 
 .container-item > h1{
     font-size: 50px;
+    color: #ced6e0;
+    text-shadow: 3px 3px #e84118;
 }
 
 .customList{
-    border: solid 2px #dfe6e9;
+    padding-top: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    background-color: #2f3542;
+    flex: 1 1 100%;
+    border: solid 5px;
+    border-top-color: #ced6e0;
+    border-left-color: #ced6e0;
+    border-right-color: #57606f;
+    border-bottom-color: #57606f;
     overflow-y: auto;
-    min-height: 1rem;
 }
 
 .customForm{
@@ -74,6 +88,8 @@ body{
 }
 
 .side-bar{
+    
+    background: -webkit-linear-gradient(90deg, #000, #262626);
     display: flex;
     flex: none;
     width: 25%;
@@ -83,10 +99,16 @@ body{
 }
 
 .center_page{
+    background: -webkit-linear-gradient(90deg, #000, #262626);
     border-top: none;
     border-bottom: none;
     padding-left: 1rem;
     padding-right: 1rem;
+}
+
+.center_page label{
+    color: #ced6e0;
+    text-shadow: 2px 2px #e84118;
 }
 
 .flex{

@@ -108,6 +108,7 @@ function useAuth(req, res, next){
 }
 
 app.get('/', useAuth, (req, res) => { getFile('./html/login.html', res, 'html'); });
+app.get('/favicon.ico', useAuth, (req, res) => { getFile('./assets/images/icons/Folder_ico.ico', res, 'ico'); });
 app.get('/login', useAuth, (req, res) => { getFile('./html/login.html', res, 'html'); });
 app.get('/register', useAuth, (req, res) => { getFile('./html/register.html', res, 'html'); });
 app.get('/files', checkAuth, (req, res) => { 
@@ -178,6 +179,7 @@ app.post('/api/text/update', checkAuth, (req, res) => {
             e.updateOne({textname:name}, {$set: {textdata:data}});
             res.status(200);
             res.end();
+            console.log("Doc updated: " + name);
         }).catch(err => {
             console.log(err);
             res.status(404);
@@ -205,6 +207,7 @@ app.post("/api/text/create", checkAuth, (req, res) => {
                 res.status(200);
                 res.json({staus:200, reason:"all good"});
                 res.end();
+                console.log("New doc reated: " + name);
             }
         }).catch(err => {
             res.status(404);
@@ -236,6 +239,51 @@ app.get("/api/text/content", checkAuth, (req, res) => {
 
 });
 
+app.post("/api/files/delete", checkAuth, (req, res) => {
+    const fname = req.headers.filename;
+    const lchar = CONFIG.exchange_folder[CONFIG.exchange_folder.length-1];
+    const path = CONFIG.exchange_folder + (lchar === "/" ? "" : "/") + fname;
+    console.log("Deleted file: "+path);
+    fs.acc
+    fs.unlink(CONFIG.exchange_folder + "/" + fname, (err) => {
+        if(err){
+            console.log(err);
+            res.status(404);
+            res.end();
+        }else{
+            res.status(200);
+            res.end();
+        }
+    });
+});
+
+app.get("/api/files/stats", checkAuth, (req, res) => {
+    const fname = req.headers.filename;
+    const lchar = CONFIG.exchange_folder[CONFIG.exchange_folder.length-1];
+    const path = CONFIG.exchange_folder + (lchar === "/" ? "" : "/") + fname;
+    fs.stat(path, (err, stats) => {
+        if(err){
+            console.log(err);
+            res.status(404);
+            res.type("json");
+            res.json({status:404, err:"err"});
+            res.end();
+        }else{
+            const out = {
+                size: formatSize(stats.size),
+                birthtime: stats.birthtime,
+                accessed: stats.atime,
+                modified: stats.mtime,
+                changed: stats.ctime
+            }
+            res.status(200);
+            res.type("json");
+            res.json(out);
+            res.end();
+        }
+    });
+});
+
 app.get('/download/*', (req, res, next) => {
     if(CONFIG.disableDownload){
         res.status(404).end(JSON.stringify({status: "404"}));
@@ -246,12 +294,13 @@ app.get('/download/*', (req, res, next) => {
     let args = req.url.split('/');
     var fileName = args[args.length-1];
     var path = EXCHANGE_FOLDER + fileName;
-    console.log("Requested: " + path);
     if(fs.existsSync(path)){
         res.status(200);
         res.download(path, fileName, (err) => {
             if(err){
                 console.log(err);
+            }else{
+                console.log("File downloaded: " + fileName);
             }
         });
     }else{

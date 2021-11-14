@@ -31,11 +31,13 @@ const getPage = function(disableDownload, disableUpload) {
         <link rel="stylesheet" href="css/customFonts.css">
         <link rel="stylesheet" href="css/customScroll.css">
         <link rel="stylesheet" href="css/selectionButton.css">
+        <link rel="stylesheet" href="css/customInputPrompt.css">
     
         <script src="js/utils.js"></script>
         <script src="js/populate.js"></script>
         <script src="js/cookieManager.js"></script>
         <script src="js/customButtonScripts.js"></script>
+        <script src="js/promptProvider.js"></script>
     </head>
     <body>
         <div class="container">

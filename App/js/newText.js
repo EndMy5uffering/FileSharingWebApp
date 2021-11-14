@@ -27,6 +27,7 @@ function createText(){
 function saveText(){
     const side_bar = document.getElementById("side_bar");
     const textArea = document.getElementById("center_text_area");
+    const textAreaLabel = document.getElementById("center_text_area_label");
     if(!textArea.value || textArea.value === ""){
         openPrompt("ERROR", getLable("errL", "There is no text to save!"));
         return;
@@ -52,6 +53,7 @@ function saveText(){
         fetch("/api/text/update", options).then(e => {
             if(e.status === 200){
                 openPrompt("Saved!", getLable("okL", "Data was saved!"));
+                textAreaLabel.innerHTML = "Document: -";
             }else{
                 openPrompt("ERROR", getLable("errL", "Something went wrong!"));
             }

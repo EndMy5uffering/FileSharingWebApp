@@ -12,6 +12,7 @@ window.addEventListener("load", () => {
 
 function getDocText(element, docName){
     const textArea = document.getElementById("center_text_area");
+    const textAreaLbel = document.getElementById("center_text_area_label");
     
     fetch("/api/text/content", {
         method:"GET",
@@ -21,6 +22,7 @@ function getDocText(element, docName){
     }).then(async e => {
         const data = await e.json();
         textArea.value = data.textdata;
+        textAreaLbel.innerHTML = "Document: " + docName
     }).catch(err => {
         textArea.value = "ERROR";
     });
